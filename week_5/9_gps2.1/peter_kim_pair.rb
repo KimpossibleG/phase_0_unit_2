@@ -1,10 +1,11 @@
+
+
 # U2.W5: The Bakery Challenge (GPS 2.1)
 
 # Your Names
 # 1) Peter Debelak
 # 2) Kim Girard
 
-#Original w/ comments and solution:
  # This is the file you should end up editing. 
 =begin 
   def bakery_num(num_of_people, fav_food) # method takes number of people and favorite food as arguments
@@ -56,7 +57,7 @@
    # end # ends if statement from line 30
   end # ends the method
 =end
- 
+
 def bakery_num(num_of_people, fav_food)
   serving_sizes = {"pie" => 8, "cake" => 6, "cookie" => 1}
   
@@ -64,25 +65,33 @@ def bakery_num(num_of_people, fav_food)
     raise ArgumentError.new("You can't make that food")
   end
 
-  baking_amounts = {"pie" => 0, "cake" => 0, "cookie" => 0}
-  baking_amounts[fav_food] = num_of_people / serving_sizes[fav_food]
+  num_of_food = num_of_people / serving_sizes[fav_food]
   remaining_num_of_people = num_of_people % serving_sizes[fav_food]
 
   if remaining_num_of_people == 0
-    return "You need to make #{baking_amounts[fav_food]} #{fav_food}(s)."
+    return "You need to make #{num_of_food} #{fav_food}(s)."
   else
+    baking_amounts = Hash.new
+    baking_amounts = {"pie" => 0, "cake" => 0, "cookie" => 0}
+
+    baking_amounts[fav_food] = num_of_food
+
     # there will never be the need for a 'remainder' pie
-    baking_amounts["cake"] += remaining_num_of_people / serving_sizes["cake"]
+    cake_qty = remaining_num_of_people / serving_sizes["cake"]
     remaining_num_of_people = remaining_num_of_people % serving_sizes["cake"]
-    baking_amounts["cookie"] += remaining_num_of_people
+    cookie_qty = remaining_num_of_people 
+
+    baking_amounts["cake"] = baking_amounts["cake"] + cake_qty
+    baking_amounts["cookie"] = baking_amounts["cookie"] + cookie_qty
   
     return "You need to make #{baking_amounts["pie"]} pie(s), #{baking_amounts["cake"]} cake(s), and #{baking_amounts["cookie"]} cookie(s)." 
   end
 end
 
+
 #-----------------------------------------------------------------------------------------------------
 #DRIVER CODE-- DO NOT MODIFY ANYTHING BELOW THIS LINE (except in the section at the bottom)
-# These are the tests to ensure it's working.
+# These are the tests to ensure it's working. 
 # These should all print true if the method is working properly.
 p bakery_num(24, "cake") == "You need to make 4 cake(s)."
 p bakery_num(41, "pie") == "You need to make 5 pie(s), 0 cake(s), and 1 cookie(s)."
@@ -92,4 +101,5 @@ p bakery_num(130, "pie") == "You need to make 16 pie(s), 0 cake(s), and 2 cookie
 # p bakery_num(3, "apples") # this will raise an ArgumentError
 
 # You SHOULD change this driver code. Why? Because it doesn't make sense.
-p bakery_num(41, "cake") == "You need to make 0 pie(s), 6 cake(s), and 5 cookie(s)."
+p bakery_num(41, "cake") == "You need to make 0 pie(s), 6 cake(s), and 5 cookie(s)." # WHAAAAAT? I thought I said I wanted cake!
+ 
