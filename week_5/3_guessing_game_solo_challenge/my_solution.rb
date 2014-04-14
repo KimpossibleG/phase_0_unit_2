@@ -1,12 +1,3 @@
-NOTE TO KIM:
-Next steps - Refactor
-then create the interface
-
-
-
-
-
-
 
 # U2.W5: Build a simple guessing game SOLO CHALLENGE
 
@@ -39,7 +30,7 @@ then create the interface
 
 # 3. Initial Solution
 
-class GuessingGame
+class GuessingGame1
 	def initialize(answer)
     	@answer = answer
     	@last_guess = nil
@@ -78,9 +69,47 @@ end
 
 # 4. Refactored Solution
 
+class GuessingGame
+	def initialize(answer)
+    	@answer = answer
+    	@solved = false
+  	end
+  
+	def guess(last_guess)
+		@last_guess = last_guess
+		@solved = false
+		if @last_guess < @answer
+			@last_result = :low
+		elsif @last_guess > @answer
+			@last_result = :high
+		elsif @last_guess == @answer
+			@solved = true			
+			@last_result = :correct
+		end
+	end
 
+	def solved?
+		return @solved
+	end
 
+end
 
+game = GuessingGame.new rand(100)
+last_guess  = nil
+last_result = nil
+
+until game.solved?
+  unless last_guess.nil?
+    puts "Oops!  Your last guess (#{last_guess}) was #{last_result}."
+    puts ""
+  end
+
+  print "Enter your guess: "
+  last_guess  = gets.chomp.to_i
+  last_result = game.guess(last_guess)
+end
+
+puts "#{last_guess} was correct!"
 
 
 # 1. DRIVER TESTS GO BELOW THIS LINE
@@ -89,7 +118,6 @@ game = GuessingGame.new(43)
 puts game.guess(0) == :low
 puts game.guess(100) == :high
 puts game.solved? == false
-puts game.gimme_answer
 puts game.guess(43) == :correct
 puts game.solved? == true
 
@@ -98,3 +126,27 @@ puts game.solved? == true
 
 
 # 5. Reflection 
+=begin
+What parts of your strategy worked? What problems did you face?
+I was clear on defining a class and creating the methods. I had some issues with where it was
+best to initialize each of the different variables.
+
+What questions did you have while coding? What resources did you find to help you answer them?
+I didn't need to go external this time. :-)
+
+What concepts are you having trouble with, or did you just figure something out? If so, what?
+n/a
+
+Did you learn any new skills or tricks?
+I wasn't familiar with the :symbols before, but found them pretty straightforward.
+
+How confident are you with each of the learning objectives?
+Quite confident.
+
+Which parts of the challenge did you enjoy?
+I enjoyed creating the class.
+
+Which parts of the challenge did you find tedious?
+None.
+	
+=end
