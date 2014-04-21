@@ -1,7 +1,7 @@
 # U2.W6: PezDispenser Class from User Stories
 
 
-# I worked on this challenge [by myself, with: ].
+# I worked on this challenge by myself.
 
 # 1. Review the following user stories:
 # - As a pez user, I'd like to be able to "create" a new pez dispenser with a group of flavors that 
@@ -21,9 +21,28 @@
 # 3. Initial Solution
 
 class PezDispenser
- 
-# your code here!
- 
+	def initialize(flavors) # flavors is an array of strings representing various flavors
+		@flavors = flavors
+	end
+
+	def pez_count
+		@flavors.length
+	end
+
+	def see_all_pez
+		@flavors.join(", ")
+	end
+
+	def add_pez(flavor) # flavor is a string representing the pez flavor being added
+		@flavor = flavor
+		# assume that the new flavor is being added at the bottom of the dispenser i.e. last piece
+		@flavors << @flavor
+	end
+
+	def get_pez
+		@flavors.delete_at(0).to_s
+	end
+
 end
  
 
@@ -37,17 +56,25 @@ end
 
 # 1. DRIVER TESTS GO BELOW THIS LINE
 
-flavors = %w(cherry chocolate cola grape lemon orange peppermint raspberry strawberry).shuffle
+def assert
+	raise "Assertion failed!" unless yield
+end 
+
+# line below creates an array called flavors with the words as string elements in random order
+# commented it out for testing purposes
+# flavors = %w(cherry chocolate cola grape lemon orange peppermint raspberry strawberry).shuffle
+flavors = ["grape", "raspberry", "lemon", "cherry", "chocolate", "strawberry", "orange", "peppermint", "cola"]
 super_mario = PezDispenser.new(flavors)
-puts "A new pez dispenser has been created. You have #{super_mario.pez_count} pez!"  
-puts "Here's a look inside the dispenser:"  
-puts super_mario.see_all_pez 
-puts "Adding a purple pez."
-super_mario.add_pez("purple")   # mmmmm, purple flavor
-puts "Now you have #{super_mario.pez_count} pez!"
-puts "Oh, you want one do you?"
-puts "The pez flavor you got is: #{super_mario.get_pez}"
-puts "Now you have #{super_mario.pez_count} pez!"
+assert { "A new pez dispenser has been created. You have #{super_mario.pez_count} pez!" == "A new pez dispenser has been created. You have 9 pez!"}
+
+# puts "Here's a look inside the dispenser:" 
+assert { super_mario.see_all_pez == "grape, raspberry, lemon, cherry, chocolate, strawberry, orange, peppermint, cola"}
+# puts "Adding a purple pez."
+assert { super_mario.add_pez("purple") == ["grape", "raspberry", "lemon", "cherry", "chocolate", "strawberry", "orange", "peppermint", "cola", "purple"] }
+assert { "Now you have #{super_mario.pez_count} pez!" == "Now you have 10 pez!" }
+# puts "Oh, you want one do you?"
+assert { "The pez flavor you got is: #{super_mario.get_pez}" == "The pez flavor you got is: grape" }
+assert { "Now you have #{super_mario.pez_count} pez!" == "Now you have 9 pez!" }
 
 
 
