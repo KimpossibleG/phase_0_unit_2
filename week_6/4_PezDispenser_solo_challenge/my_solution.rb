@@ -15,7 +15,31 @@
 
 
 # 2. Pseudocode
+=begin
+Within class PezDispenser
+	DEFINE method called initialize that takes one argument: flavors
+		SET @flavors equal to flavors
+	end method
 
+	DEFINE method called pez_count
+		CALL #length on @flavors
+	end method
+
+	DEFINE method called see_all_pez
+		CALL #join on @flavors with a comma and space as separators
+	end method
+
+	DEFINE method called add_pez that takes flavor as an argument
+		SET @flavor equal to flavor
+		PUSH @flavor into @flavors
+	end method
+
+	DEFINE get_pez
+		CALL #delete_at with index 0 on @flavors
+		CONVERT to string
+	end method
+	
+=end
 
 
 # 3. Initial Solution
@@ -80,3 +104,27 @@ assert { "Now you have #{super_mario.pez_count} pez!" == "Now you have 9 pez!" }
 
 
 # 5. Reflection 
+=begin
+	
+What parts of your strategy worked? What problems did you face?
+Everything went fairly smoothly this time.
+
+What questions did you have while coding? What resources did you find to help you answer them?
+Googled a couple of quick things on ruby-doc.org
+
+What concepts are you having trouble with, or did you just figure something out? If so, what?
+I struggle with writing all of the test code first before digging into the code first.
+
+Did you learn any new skills or tricks?
+n/a
+
+How confident are you with each of the Learning Competencies?
+Feeling fairly confident -- again, just not entirely solid writing each portion (test, pseudo, etc) linearly
+
+Which parts of the challenge did you enjoy?
+Found this exercise enjoyable because it was more about figuring out how to solve the problem than sturggling to remember each bit of syntax
+
+Which parts of the challenge did you find tedious?
+n/a
+	
+=end
